@@ -3,26 +3,44 @@ import google.generativeai as genai
 import os
 
 class GeminiClient:
-    def __init__(self, api_key):
+    def __init__(self, api_key, system_prompt=None):
         """
         初始化Gemini客戶端。
         :param api_key: 您的Gemini API金鑰。
+        :param system_prompt: (可選) 給模型的系統級指令。
         """
         if not api_key:
             raise ValueError("API金鑰未提供。請設定GEMINI_API_KEY環境變數或直接傳入。")
         genai.configure(api_key=api_key)
-        # 您可以根據需求選擇 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro' 等模型
-        self.model = genai.GenerativeModel('gemini-1.5-flash') 
-        print("Gemini AI 模型已成功初始化。")
 
-    def send_message(self, text_prompt):
+        generation_config = None # 可以根據需要設定，例如溫度等
+        safety_settings = None # 可以根據需要設定安全等級
+
+        # 您可以根據需求選擇 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro' 等模型
+        self.model = genai.GenerativeModel(
+            'gemini-1.5-flash',
+            system_instruction=system_prompt,
+            generation_config=generation_config,
+            safety_settings=safety_settings
+            )
+        print("Gemini AI 模型已成功初始化。")
+        if system_prompt:
+            print(f"使用系統提示: {system_prompt[:100]}...") # 只印出前100個字元
+
+    def send_message(self, text_prompt, is_new_chat=False):
         """
         向Gemini模型發送文字提示並獲取回應。
         :param text_prompt: 要發送的文字提示。
         :return: Gemini模型的回應文字，若失敗則返回None。
         """
         try:
-            response = self.model.generate_content(text_prompt)
+            # 對於有 system_instruction 的模型，通常建議使用 start_chat 進行多輪對話
+            # 但如果每次都是獨立請求，直接 generate_content 也可以
+            # 為了簡化 MVP1，我們先假設每次都是獨立請求，但保留 chat 的可能性
+            # if is_new_chat or not hasattr(self, 'chat_session'):
+            #     self.chat_session = self.model.start_chat(history=[])
+            # response = self.chat_session.send_message(text_prompt)
+            response = self.model.generate_content(text_prompt) # 保持簡單
             # 處理 API 回應的各種情況
             if response.parts:
                 return response.text
@@ -57,11 +75,12 @@ if __name__ == '__main__':
         print("錯誤：請在 .env 檔案中設定 GEMINI_API_KEY。")
     else:
         try:
-            client = GeminiClient(api_key=api_key_from_env)
+            # 測試時可以傳入一個簡單的系統提示
+            test_system_prompt = "你是一個樂於助人的AI。"
+            client = GeminiClient(api_key=api_key_from_env, system_prompt=test_system_prompt)
             # 測試時，可以直接在這裡輸入文字或使用預設文字
             test_prompts = [
                 "你好，Gemini！請給我一句關於程式設計的短語。",
-                "請解釋量子糾纏現象。", # 測試可能觸發安全過濾的內容 (視API設定而定)
                 "今天天氣如何？" # 一般性問題
             ]
             for test_prompt in test_prompts:

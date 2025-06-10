@@ -16,6 +16,7 @@ class AROverlay:
             # 先載入原始圖像
             original_pil_image = Image.open(overlay_image_path).convert("RGBA")
             self.overlay_image_pil = original_pil_image.copy() # 操作副本
+            self._current_image_path = overlay_image_path # 追蹤目前圖片路徑
 
             if target_height is not None and target_height > 0:
                 original_width, original_height = self.overlay_image_pil.size
@@ -44,6 +45,45 @@ class AROverlay:
         except Exception as e:
             raise IOError(f"載入疊加圖像時發生錯誤 ({overlay_image_path}): {e}")
 
+    def update_overlay_image(self, new_image_path, target_height=None):
+        """
+        更新疊加的圖像。
+        :param new_image_path: 新的圖像檔案路徑。
+        :param target_height: (可選) 期望新圖像的高度，如果為None，則使用初始化時的高度。
+        """
+        if hasattr(self, '_current_image_path') and self._current_image_path == new_image_path:
+            # print(f"DEBUG: 疊加圖像 '{new_image_path}' 已載入，無需更新。") # 可選的除錯訊息
+            return # 如果路徑相同，則不執行任何操作
+
+        try:
+            original_pil_image = Image.open(new_image_path).convert("RGBA")
+            self.overlay_image_pil = original_pil_image.copy()
+
+            # 如果未提供 target_height，則嘗試使用初始化時的 target_height (如果有的話)
+            # 這裡簡化處理，直接使用傳入的 target_height 或不縮放
+            # 更完善的做法是保存初始化時的 target_height
+            current_target_height = target_height if target_height is not None else getattr(self, '_initial_target_height', None)
+            if current_target_height is None and hasattr(self, 'overlay_height') and self.overlay_image_pil.height != self.overlay_height:
+                 # 如果沒有明確的 target_height，但新圖片高度與當前不同，可能需要重新計算以保持一致性
+                 # 為了MVP簡化，這裡我們先假設如果提供了 target_height 就用它，否則用原始尺寸
+                 pass
+
+            if current_target_height is not None and current_target_height > 0:
+                original_width, original_height = self.overlay_image_pil.size
+                if original_height > 0:
+                    aspect_ratio = original_width / original_height
+                    new_height = int(current_target_height)
+                    new_width = int(new_height * aspect_ratio)
+                    if new_width > 0 and new_height > 0:
+                        self.overlay_image_pil = self.overlay_image_pil.resize((new_width, new_height), Image.LANCZOS)
+            
+            self.overlay_width, self.overlay_height = self.overlay_image_pil.size
+            print(f"疊加圖像已更新為 '{new_image_path}'。顯示尺寸: {self.overlay_width}x{self.overlay_height}")
+            self._current_image_path = new_image_path # 更新追蹤的路徑
+        except FileNotFoundError:
+            print(f"警告：無法找到新的疊加圖像檔案 '{new_image_path}'。疊加圖像未改變。")
+        except Exception as e:
+            print(f"警告：更新疊加圖像時發生錯誤 ({new_image_path}): {e}。疊加圖像未改變。")
 
     def apply_overlay_pil(self, background_frame_cv, position=(50, 50)):
         """

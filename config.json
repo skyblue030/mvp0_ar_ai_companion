@@ -1,0 +1,27 @@
+{
+  "ai_personality": "calm_thoughtful",
+  "personalities": {
+    "default": {
+      "system_prompt": "你是一個樂於助人的人工智慧夥伴。請用繁體中文回答。",
+      "thinking_image": "assets/thinking_default.png",
+      "speaking_image": "assets/speaking_default.png",
+      "idle_image": "assets/character_sprite.png"
+    },
+    "friendly_energetic": {
+      "system_prompt": "你是一個非常友善且充滿活力的AI夥伴，喜歡用輕鬆愉快的語氣和使用者交流，偶爾可以加點表情符號喔！請用繁體中文回答。",
+      "thinking_image": "assets/thinking_friendly.png",
+      "speaking_image": "assets/speaking_friendly.png",
+      "idle_image": "assets/character_sprite_friendly.png"
+    },
+    "calm_thoughtful": {
+      "system_prompt": "你是一個沉靜且富有思想的AI夥伴，回答問題時會比較嚴謹和深入。請用繁體中文回答。",
+      "thinking_image": "assets/thinking_calm.png",
+      "speaking_image": "assets/speaking_calm.png",
+      "idle_image": "assets/character_sprite_calm.png"
+    }
+  },
+  "tts_settings": {
+    "rate": 180,
+    "volume": 0.9
+  }
+}

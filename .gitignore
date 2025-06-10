@@ -45,6 +45,7 @@ htmlcov/
 .coverage.*
 .cache
 nosetests.xml
+test-results/
 coverage.xml
 *.cover
 *.py,cover
@@ -59,8 +60,33 @@ ENV/
 env/
 env.bak/
 venv.bak/
+# Python Linter/Type Checker Caches
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
 
 # IDE specific files
 .idea/
 .vscode/
 *.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# If your Node.js/frontend project has a separate build output directory (e.g., client/build), add it here.
+# Common Python build/dist directories are already ignored above.
+
+# Log files
+*.log
+logs/
+*.logs
+
+# OS-generated files (macOS *.DS_Store is already included)
+Thumbs.db
+._*
+*~
+desktop.ini
