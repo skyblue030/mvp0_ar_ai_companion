@@ -1,4 +1,4 @@
-# [Project Name]
+# AR AI Companion (MVP0)
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -6,14 +6,19 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-A brief one-sentence or two-sentence description of what your project does.
+An MVP (Minimum Viable Product) for an Augmented Reality AI Companion designed to [describe its core purpose in one or two sentences, e.g., provide interactive assistance, offer companionship through AR, etc.].
 
 ## Description
 
-Provide a more detailed overview of your project. Explain the problem it solves, its main features, and its purpose. You can also mention the motivation behind creating this project and its vision for the future.
+This project aims to explore the intersection of Augmented Reality and Artificial Intelligence to create an interactive companion.
+Explain in more detail:
+*   What kind of AI companion is it (e.g., informational, conversational, task-oriented)?
+*   What problem does it solve or what user need does it address?
+*   What are the key interactions or experiences it offers?
+*   What is the motivation behind this project and its future vision?
 
 For example:
-*This project is a comprehensive tool for X, designed to help users achieve Y by providing features Z and A. It was developed to address the common challenge of B in an efficient and user-friendly manner.*
+*This AR AI Companion (MVP0) is a proof-of-concept demonstrating how an AI entity can be visualized and interact within a user's real-world environment using AR. It leverages [mention key AI technology, e.g., natural language processing] to understand and respond to user queries and [mention key AR technology, e.g., image tracking] to anchor itself in the physical space.*
 
 ## Table of Contents
 
@@ -31,11 +36,13 @@ For example:
 
 ## Features
 
-List the key features of your project. Be specific and highlight what makes your project unique or useful.
+List the key features of your AR AI Companion. Be specific and highlight what makes it unique or useful.
 
-* **Feature 1:** Detailed explanation of what this feature does and its benefits.
-* **Feature 2:** Another cool aspect of your project.
-* **Feature 3:** And so on...
+*   **AR Visualization:** How is the AI companion represented in AR? (e.g., 3D model, abstract form)
+*   **AI Interaction:** How does the user interact with the AI? (e.g., voice commands, text input, gestures)
+*   **Contextual Awareness (if applicable):** Does the companion react to the real-world environment?
+*   **[Specific Feature 1]:** e.g., Real-time object recognition and information overlay.
+*   **[Specific Feature 2]:** e.g., Conversational AI with personalized responses.
 
 ## Getting Started
 
@@ -61,7 +68,7 @@ Provide a step-by-step guide on how to install your project.
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/your_username/your_project_name.git
+    git clone https://github.com/skyblue030/mvp0_ar_ai_companion.git
     ```
 2.  **Navigate to the project directory:**
     ```sh
@@ -142,7 +149,7 @@ Contributions are what make the open-source community such an amazing place to l
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
 
-1.  Fork the Project (`https://github.com/your_username/your_project_name/fork`)
+1.  Fork the Project (`https://github.com/skyblue030/mvp0_ar_ai_companion.git`)
 2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4.  Push to the Branch (`git push origin feature/AmazingFeature`)
